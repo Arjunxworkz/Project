@@ -99,7 +99,7 @@ body {
 		<h1>Project Discription</h1>
 		
 		
-		<p>Some content..</p>
+		<p>content..</p>
 	</div>
 	<div class="footer">
 		<p>@arjunbari </p>
