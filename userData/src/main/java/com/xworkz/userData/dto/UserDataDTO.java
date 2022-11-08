@@ -24,6 +24,7 @@ public class UserDataDTO {
 	private String name;
 	private String email;
 	private String number;
+	private String password;
 	
 	public UserDataDTO() {
 		System.out.println("UserDat DTO class is running");
@@ -61,9 +62,19 @@ public class UserDataDTO {
 		this.number = number;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "UserDataDTO [id=" + id + ", name=" + name + ", email=" + email + ", number=" + number + "]";
+		return "UserDataDTO [id=" + id + ", name=" + name + ", email=" + email + ", number=" + number + ", password="
+				+ password + "]";
 	}
+
 	
 }

@@ -27,7 +27,7 @@ public class UserDataController {
 		System.out.println(userDataDTO);
 		if (userDataDTO != null) {
 			boolean findByEmail = userService.getByEmail(userDataDTO.getEmail());
-			if (!findByEmail) {
+			if (!findByEmail) {//allready exist
 				model.addAttribute("msg", "Email is Already exits ,You Are Unable To Save");
 
 			} else {

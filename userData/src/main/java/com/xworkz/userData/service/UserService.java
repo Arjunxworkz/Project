@@ -6,4 +6,5 @@ public interface UserService {
 	
 public boolean saveAndValidate(UserDataDTO userDataDTO);
 public boolean getByEmail(String email);
+public String password();
 }

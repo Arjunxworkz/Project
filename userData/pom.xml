@@ -13,7 +13,7 @@
 		<hibernate.version>5.6.10.Final</hibernate.version>
 		<mysql.version>8.0.30</mysql.version>
 		<quarkus.version>1.13.7.Final</quarkus.version>
-
+        <mailer.version>1.6.2</mailer.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -57,7 +57,13 @@
 			<artifactId>quarkus-hibernate-validator</artifactId>
 			<version>${quarkus.version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${mailer.version}</version>
+		</dependency>
+        
 	</dependencies>
 	<packaging>war</packaging>
 	<build>
