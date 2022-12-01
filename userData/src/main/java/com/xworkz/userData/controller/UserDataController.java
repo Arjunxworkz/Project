@@ -10,7 +10,7 @@ import com.xworkz.userData.dto.UserDataDTO;
 import com.xworkz.userData.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/use")
 public class UserDataController {
 
 	@Autowired

@@ -213,28 +213,33 @@ body {
 <body>
 
 	<div class="header">
-		<img src="image/lg.png"  style="height: 57px;">
+		<img src="image/lg.png" style="height: 57px;">
 		<div class="header-right">
-			<a href="index.jsp">Home</a> <a href="logIn.jsp">SignIn</a>
+			<a href="index.jsp">Home</a> <a href="#about">SignIn</a>
 		</div>
 	</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-6" style="padding-left: 20px">
 			 <h5>${UserData}</h5>
-			<span style="color: antiquewhite;"> ${msg}</span>
+			
 				<h1>Project Discription</h1>
 				
 				<p>Some content..</p>
 			</div>
 			<div class="col-sm-6">
-			<form action="use" method="post">
-				<span style="color: antiquewhite;">Name:</span> <input type="text" name="name" required/><br><br>
-				<span style="color: antiquewhite;">Email:</span><input type="email"placeholder="Enter Email" name="email" required/><br><br>
-				<span style="color: antiquewhite;">Number:</span><input type="number"placeholder="Enter Your Number" name="number" required/><br>
+			<form action="log" method="post">
 			
-			 <input type="checkbox" id="check" name="checkbox" onclick="enable()">	<span style="color: antiquewhite;"> Aggrement</span><br>
-			<input type="submit" class="signupbtn" value="Sign Up" disabled="disabled" id="btn"/>
+			<span style="color: antiquewhite;">Email:</span><input type="email"placeholder="Enter Email" name="email" required/>
+			<br><br>
+		   	<span style="color: antiquewhite;"> Password:</span><input type="password" name="password" required/><br>
+		    
+			<input type="submit" class="signupbtn" value="logIn"  id="btn"/>
+			<div style="font-size: smaller;">
+			<a href="forgotPassword.jsp" style="color: coral;">forgot password & reset password</a> 
+			<br>
+			<span style="color: coral;"> ${msg}</span>
+			</div>
 			</form>
 			</div>
 		</div>
@@ -242,18 +247,6 @@ body {
 	<div class="footer">
 		<p>@arjunbari</p>
 	</div>
-	<script>
-	function enable() {
-		var check=document.getElementById("check");
-		var btn=document.getElementById("btn");
-		if(check.checked){
-			btn.removeAttribute("disabled");
-		}else{
-			btn.disabled="disabled";
-		}
-		
-		
-	}
-	</script>
+	
 </body>
 </html>

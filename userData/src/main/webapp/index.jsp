@@ -83,20 +83,30 @@ body {
 	text-align: center;
 }
 </style>
+<style>
+body {
+  background-image: url('image/sn.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
 </head>
 <body>
 
 	<div class="header">
-	<img src="image/Logo.png"  style="height: 57px;">
+	<img src="image/lg.png"  style="height: 57px;">
 		<div class="header-right">
 			<a class="active" href="signUp.jsp">SignUp</a>
 			
-			<a href="#about">SignIn</a>
+			
+			<a href="logIn.jsp">SignIn</a>
 		</div>
 	</div>
      <h3>${UserData}</h3>
+     <span style="color: antiquewhite;"> ${msg}</span>
 	<div style="padding-left: 20px">
-		<h1>Project Discription</h1>
+		<h1>Project Description</h1>
 		
 		
 		<p>content..</p>

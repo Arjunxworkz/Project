@@ -16,4 +16,8 @@ public interface UserDataDao {
 	public Boolean sendEmail(String email,String password, UserDataDTO userDataDTO);
 	
 	public String passwordGenerator();
+	
+	public List<UserDataDTO> logInByEmailAndPassword(String email,String password);
+	
+	public List<UserDataDTO> forgotPasswordByMail(String email,String password);
 }

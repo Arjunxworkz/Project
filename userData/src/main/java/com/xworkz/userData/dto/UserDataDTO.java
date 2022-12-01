@@ -10,22 +10,24 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.GenericGenerator;
-
+//query= "update UserDTO as user set user.password = :passs, user.status=:stats where user.userEmail =:email"),
 @Entity
-@Table(name ="userdata_info")
-@NamedQueries({@NamedQuery(name ="getEmail" , query= "select user from UserDataDTO user where user.email = :mail")})
+@Table(name = "userdata_info")
+@NamedQueries({ @NamedQuery(name = "getEmail", query = "select user from UserDataDTO user where user.email = :mail"),
+		@NamedQuery(name = "getEmailAndPassword", query = "select user from UserDataDTO user where user.email = :mail And user.password =:pass"),
+		@NamedQuery(name="forgotPasswordByMail",query = "UPDATE UserDataDTO as user SET user.password=:pass WHERE user.email=:mail")})
 public class UserDataDTO {
-	
+
 	@Id
-	@GenericGenerator(name = "user",strategy = "increment")
+	@GenericGenerator(name = "user", strategy = "increment")
 	@GeneratedValue(generator = "user")
-	@Min(value=1)
+	@Min(value = 1)
 	private Integer id;
 	private String name;
 	private String email;
 	private String number;
 	private String password;
-	
+
 	public UserDataDTO() {
 		System.out.println("UserDat DTO class is running");
 	}
@@ -76,5 +78,4 @@ public class UserDataDTO {
 				+ password + "]";
 	}
 
-	
 }

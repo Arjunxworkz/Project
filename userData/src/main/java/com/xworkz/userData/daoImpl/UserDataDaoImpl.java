@@ -14,6 +14,8 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -52,6 +54,8 @@ public class UserDataDaoImpl implements UserDataDao {
 
 	@Override
 	public List<UserDataDTO> findByEmail(String email) {
+		// @NamedQueries({@NamedQuery(name ="getEmail" , query= "select user from
+		// UserDataDTO user where user.email = :mail")})
 		try {
 			manager = factory.createEntityManager();
 			Query query = manager.createNamedQuery("getEmail");
@@ -72,7 +76,7 @@ public class UserDataDaoImpl implements UserDataDao {
 	}
 
 	@Override
-	public Boolean sendEmail(String email,String password, UserDataDTO userDataDTO) {
+	public Boolean sendEmail(String email, String password, UserDataDTO userDataDTO) {
 
 		String name = userDataDTO.getName();
 
@@ -80,11 +84,11 @@ public class UserDataDaoImpl implements UserDataDao {
 
 		System.out.println(email);
 
-		String from = "hanamantxworkz@outlook.com";
+		String from = "arjunbari03@outlook.com";
 
 		String host = "smtp.office365.com";
 
-		String pass = "hanamant123@";
+		String pass = "Arjunbari@123";
 
 		// Get system properties
 		Properties properties = System.getProperties();
@@ -125,12 +129,12 @@ public class UserDataDaoImpl implements UserDataDao {
 
 			// Now set the actual message
 			message.setText("Hi" + " " + name + " " + "This Is To Confirm You That Your Registration Was Successful"
-					+ " " + "Thank You");
+					+ " " + "Thank You ");
 
 			System.out.println("sending...");
 			// Send message
 			Transport.send(message);
-			System.out.println("Sent message successfully....");
+			System.out.println("Sent message successfully...." + userDataDTO.getName() + userDataDTO.getPassword());
 
 		} catch (MessagingException mex) {
 			// TODO: handle exception
@@ -141,17 +145,64 @@ public class UserDataDaoImpl implements UserDataDao {
 
 	@Override
 	public String passwordGenerator() {
-		String upperCase="QWERTYUIOPASDFGHJKLZXCVBNM";
-		String lowerCase="qwertyuiopasdfghjklzxcvbnm";
-		String num="0123456789";
-		String specialChar="!@#$%&";
-		String combination=upperCase+lowerCase+num+specialChar;
-		int length=12;
-		char[] password=new char[length];
-		Random random=new Random();
-		for(int i=0;i<length;i++) {
-		password[i]=combination.charAt(random.nextInt(combination.length()));
-	}   
+		String upperCase = "QWERTYUIOPASDFGHJKLZXCVBNM";
+		String lowerCase = "qwertyuiopasdfghjklzxcvbnm";
+		String num = "0123456789";
+		String specialChar = "!@#$%&";
+		String combination = upperCase + lowerCase + num + specialChar;
+		int length = 12;
+		char[] password = new char[length];
+		Random random = new Random();
+		for (int i = 0; i < length; i++) {
+			password[i] = combination.charAt(random.nextInt(combination.length()));
+		}
 		return new String(password);
+	}
+
+	@Override
+	public List<UserDataDTO> logInByEmailAndPassword(String email, String password) {
+		try {
+			manager = factory.createEntityManager();
+			Query query = manager.createNamedQuery("getEmailAndPassword");
+			query.setParameter("mail", email);
+			query.setParameter("pass", password);
+			List<UserDataDTO> resultLogIn = query.getResultList();
+			if (resultLogIn.isEmpty()) {
+				return null;
+			} else if (!resultLogIn.isEmpty()) {
+				return resultLogIn;
+			}
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserDataDTO> forgotPasswordByMail(String email,String password) {
+		// @NamedQueries({@NamedQuery(name ="getEmail" , query= "select user from
+		// UserDataDTO user where user.email = :mail")})
+		try {
+			manager = factory.createEntityManager();
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			Query query = manager.createNamedQuery("forgotPasswordByMail");
+			query.setParameter("mail", email);
+			query.setParameter("pass", password);
+			query.executeUpdate();
+			
+			transaction.commit();
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return null;
+
 	}
 }
