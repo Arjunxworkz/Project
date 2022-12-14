@@ -228,7 +228,7 @@ body {
 				<p>Some content..</p>
 			</div>
 			<div class="col-sm-6">
-			<form action="log" method="post">
+			<form action="logi" method="post">
 			
 			<span style="color: antiquewhite;">Email:</span><input type="email"placeholder="Enter Email" name="email" required/>
 			<br><br>

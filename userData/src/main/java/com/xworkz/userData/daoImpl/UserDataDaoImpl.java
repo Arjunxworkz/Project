@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -182,7 +183,7 @@ public class UserDataDaoImpl implements UserDataDao {
 	}
 
 	@Override
-	public List<UserDataDTO> forgotPasswordByMail(String email,String password) {
+	public List<UserDataDTO> forgotPasswordByMail(String email, String password) {
 		// @NamedQueries({@NamedQuery(name ="getEmail" , query= "select user from
 		// UserDataDTO user where user.email = :mail")})
 		try {
@@ -193,7 +194,7 @@ public class UserDataDaoImpl implements UserDataDao {
 			query.setParameter("mail", email);
 			query.setParameter("pass", password);
 			query.executeUpdate();
-			
+
 			transaction.commit();
 
 		} catch (PersistenceException e) {
@@ -205,4 +206,101 @@ public class UserDataDaoImpl implements UserDataDao {
 		return null;
 
 	}
+
+	@Override
+	public List<UserDataDTO> updateCount(Integer count, String email) {
+		try {
+			manager = factory.createEntityManager();
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			Query query = manager.createNamedQuery("updateCount");
+			query.setParameter("cot", count);
+			query.setParameter("mail", email);
+
+			query.executeUpdate();
+
+			transaction.commit();
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return null;
+	}
+
+	@Override
+	public boolean getByCount(Integer count, String email) {
+		Integer num = 3;
+		System.out.println(" getByCount method is calling");
+		try {
+			manager = factory.createEntityManager();
+			Query query = manager.createNamedQuery("getByCount");
+			// query.setParameter("cot", count);
+			query.setParameter("mail", email);
+			Integer result = (Integer) query.getSingleResult();
+			System.out.println("Check " + count + " " + result);
+			if (result == num) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return false;
+
+	}
+
+	@Override
+	public boolean statusBlock(String status, String email) {
+		try {
+			manager = factory.createEntityManager();
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			Query query = manager.createNamedQuery("statusBlock");
+			// query.setParameter("cot", count);
+			query.setParameter("mail", email);
+
+			query.executeUpdate();
+
+			transaction.commit();
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return false;
+	}
+
+	@Override
+	public boolean statusUnblock(String email) {
+		try {
+			manager = factory.createEntityManager();
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			Query query = manager.createNamedQuery("statusUnblock");
+			// query.setParameter("cot", count);
+			query.setParameter("mail", email);
+
+			query.executeUpdate();
+
+			transaction.commit();
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close();
+
+		}
+		return false;
+	}
+
 }

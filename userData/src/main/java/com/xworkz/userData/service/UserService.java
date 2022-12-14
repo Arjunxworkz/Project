@@ -11,4 +11,6 @@ public String password();
 public boolean getLogInByEmailAndPassword(String email,String password);
 
 public boolean forgotByEmail(String email,String password);
+public boolean updateBlockByCount(String email,Integer count);
+public boolean getCount(Integer count, String email);
 }

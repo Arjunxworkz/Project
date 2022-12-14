@@ -11,75 +11,64 @@ import com.xworkz.userData.dto.UserDataDTO;
 import com.xworkz.userData.service.UserService;
 
 @Controller
-@RequestMapping("/log")
+@RequestMapping("/logi")
 public class LogInController {
 	@Autowired
 	private UserService userService;
 	int count = 0;
 	boolean blockEmail;
-	
+	boolean block = blockEmail;
+
 	public LogInController() {
 		System.out.println("LogIn controller is calling");
 	}
-	
+
 	@PostMapping
-	public String login(UserDataDTO userDataDTO,Model model,String email,String password) {
-		
+	public String login(UserDataDTO userDataDTO, Model model, String email, String password) {
+
 		System.out.println("log in method is calling");
-	
-		
-		if(userDataDTO!=null) {
-			
-			boolean eemail=userService.getByEmail(userDataDTO.getEmail());
-			blockEmail=eemail;
-			boolean findByemailAndPassword=userService.getLogInByEmailAndPassword(userDataDTO.getEmail(), userDataDTO.getPassword());
-			if(eemail) {
-				
+
+		if (userDataDTO != null) {
+
+			boolean eemail = userService.getByEmail(userDataDTO.getEmail());
+			blockEmail = eemail;
+			boolean findByemailAndPassword = userService.getLogInByEmailAndPassword(userDataDTO.getEmail(),
+					userDataDTO.getPassword());
+			if (eemail) {
+
 				model.addAttribute("msg", "Your are typing wrong Email");
 				return "logIn";
-				
-			}else if(findByemailAndPassword) {
-				
+
+			} else if (findByemailAndPassword) {
+
 				model.addAttribute("msg", "You are Login Susseccfully ");
 				return "index";
-				
-			}
-			else {
-				if(6>count) {
-					boolean accountBlockEmail=userService.getByEmail(userDataDTO.getEmail());
-					
-					if(blockEmail==accountBlockEmail) {
+
+			} else {
+				while (6 > count) {
+					// boolean accountBlockEmail=userService.getByEmail(userDataDTO.getEmail());
+					boolean num=userService.getCount(count,userDataDTO.getEmail());
+					System.out.println("Rahul"+email);
+				  
+					if (num) {
+						
+						model.addAttribute("msg", "Your Account has been blocked");
+						return "logIn";
+
+					} else {
 
 						model.addAttribute("msg", "You are typing wrong password");
-						
-						count++;
-						
-						
-						System.out.println(count);
-						return "logIn";
-					}else{
-						model.addAttribute("msg", "Its another email ,You are typing wrong password");
-						
-						count++;
-						
-						
-						System.out.println(count);
-						return "logIn";
+
+						 count++;
+						 boolean conter=userService.updateBlockByCount(email, count);
+						 System.out.println("log in controller"+count);
+						 return "logIn";
 					}
-				
-			
-				
-				
-				
-					
-					
-				
+
 				}
-			
-	
-			
+
 			}
-			
+
 //		if(email!=userDataDTO.getEmail()) {
 //			model.addAttribute("msg", "Your are typing wrong Email");
 //			return "signUp";
@@ -98,10 +87,7 @@ public class LogInController {
 //		}
 		}
 		return null;
-			
-		
-		
+
 	}
-	
-	
+
 }
