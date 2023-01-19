@@ -45,9 +45,7 @@ public class UserDataDTO {
 	private String password;
 	private Integer count;
 	
-	
 	private LocalDate date;
-	
 	private LocalTime time;
 	private String status;
 

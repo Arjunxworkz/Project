@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+.text-center {
+    text-align: center!important;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+  
+    margin-right: -15px;
+    margin-left: -15px;
+}

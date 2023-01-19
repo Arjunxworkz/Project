@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+.color-switcher {
+    position: fixed;
+    margin-top: 255px;
+    width: 145px;
+    height: 130px;
+    margin-left: -145px;
+    transition: all ease 0.3s;
+    z-index: 99;
+    background: #fff;
+    text-align: center;
+    border: solid 1px #dfdfdf;
+}
